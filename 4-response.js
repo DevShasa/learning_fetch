@@ -15,37 +15,48 @@ let obj = {
 };
 
 export function getData() {
-  //
-  fetch(imgstr)
-    .then((resp) => {
-      if (!resp.ok) throw new Error('invalid');
-      return resp.blob(); //binary large object images, video, audio, fonts.
+  const jsonstring = JSON.stringify(obj) // convert object into a string
+  /**
+   * Construct a new file using jsonstring
+   * Call the file mydata.json
+   * provide the MIME type which is 'application/json'
+   */
+  let file = new File([jsonstring], 'mydata.json', {type:"application/json"});
 
-      resp.text(); //for text, html, and xml files, and css, and js.
-      resp.json(); //for json files
-    })
-    .then((blob) => {
-      console.log(blob); //blob is a chunk of memory on users computer
-      let url = URL.createObjectURL(blob);
-      let img = document.getElementById('pic');
-      img.src = url;
+
+  fetch(imgstr) 
+    .then(res =>{
+      if(!res.ok) throw new Error("Unable to fetch")
+      return res.blob() // binary blobl for images, video, audio, fonts etc
+      // res.text() // for text, html, xml files, js , cs etc
+      // res.json() // for json files
+    })  
+    .then(blob=>{
+      console.log("BLOB::",blob) // A blob is a chunk of memory
+
+      // to use the blob create a url to the chunk of memory where it is stored
+      let url = URL.createObjectURL(blob)
+      let img = document.getElementById('pic')
+      img.src = url
     })
     .catch(console.warn);
 
-  let jsonstring = JSON.stringify(obj);
-  // console.log(jsonstring);
-  let file = new File([jsonstring], 'mydata.json', { type: 'application/json' });
 
-  let response = new Response(file, {
-    status: 200,
-    statusText: 'Say my name',
-    headers: {
-      'content-type': 'application/json',
-      'content-length': file.size,
-      'x-steve': 'starts with x for a custom header name',
-    },
-  });
+  // let us construct a response
+  // let response = new Response(file, {
+  //   status:200,
+  //   statusText:"Mambo Iko shwari",
+  //   headers:{
+  //     'content-type':"application/json",
+  //     'content-length':file.size,
+  //     "x-shasa":"Look ma im a header", // custom headers must begin with x 
+  //   }
+  // })
 
-  // console.log(response.headers.get('content-type'));
-  // console.log(response.headers.get('content-length'));
+
+  // console.log("RESPONSE:::", response)
+  // console.log(response.headers.get('content-type'))
+  // response.headers.forEach((value, name) =>{
+  //   console.log(`${name} ===> ${value}`)
+  // })
 }

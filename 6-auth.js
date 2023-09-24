@@ -6,34 +6,31 @@ export function getData() {
   //controlling when cookies and credentials are passed to a server
   //CSP meta tags and headers
 
-  let str = 'http://127.0.0.1:3000/?name=value&steve=griffith';
-  let url = new URL(str); //url.search
-  let sp = url.searchParams;
-  sp.append('hello', 'world');
-  sp.append('api-key', 'kajshdfkahjsdfkjhsdfkahsdfkjksdjhfksjdh');
-  // document.cookie('')
+  let str = "http://127.0.0.1:3000/";
+  let url = new URL(str);
+  let sp = url.searchParams
+  sp.append('hello', 'world')
+  sp.append('api-key', "asdf8asdfta876asdf")
 
-  let h = new Headers();
-  // h.append('content-type', 'application/json')
-  // h.append('origin', 'https://cia.org')
-  h.append('x-api-key', 'kajshdfkahjsdfkjhsdfkahsdfkjksdjhfksjdh'); //API key
-  h.append('Authorization', 'Bearer kajshdfkahjsdfkjhsdfkahsdfkjksdjhfksjdh'); //JWT
-  //Forbidden Header Names
-
+  let h = new Headers()
+  h.append("content-type", "application/json")
+  h.append("x-api-key", "asda7asdf6asdf67a6sdf9") // custom header
+  h.append("Authorization", 'Bearer asd9afsd86afsdf765HfTY') //JET
+  // some header names are forbidden, read mdn docs to find them
   let request = new Request(url, {
-    method: 'GET',
+    method:"POST",
     headers: h,
-    cache: 'default',
-    credentials: 'same-origin',
-  });
+
+  })
 
   fetch(request)
-    .then((response) => {
-      if (!response.ok) throw new Error('invalid');
-      return response.text();
+    .then(res=>{
+      if(!res.ok) throw new Error("UNable to fetch")
+      return  res.text()
     })
-    .then((txt) => {
-      console.log(txt);
+    .then(rawtxt=>{
+      console.log("CONTENT FROM SERVER::", rawtxt)
     })
-    .catch(console.warn);
+    .catch(console.warn)
+
 }

@@ -2,26 +2,24 @@
 const url = 'https://jsonplaceholder.typicode.com/users';
 
 export function getData() {
-  //
-  fetch(url)
-    .then((resp) => {
-      // console.log(resp);
-      //error checking
-      //200-299
-      if (!resp.ok) throw new Error('was not a valid response');
-      return resp.json(); //method to extract JSON string and convert it to an Object
-    })
-    .then((dataobj) => {
-      console.log(dataobj);
-    })
-    .catch((err) => {
-      console.warn(err.message);
-    });
 
-  //The code below will always fail.
-  // let response = fetch(url);
-  // let dataobj = response.json();
-  // console.log(dataobj);
+  fetch(url)
+    .then((res)=>{
+      // will take what is in the (resolved)promise returned by fetch
+      console.log(res)
+      if(!res.ok) throw new Error("Unable to fetch")
+
+      //extract json string and convert it to javascript object
+      return res.json()
+    })
+    .then((data)=>{
+      // then the promise from the previous then has resolved, this then
+      // ... will be called, then will alwaus wait for resolve
+      console.log(data)
+    })
+    .catch(err=>{
+      // for when something in the promise chain goes wrong
+      console.warn(err.message)
+    })
 }
 
-function fred(resp) {}
