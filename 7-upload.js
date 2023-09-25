@@ -5,39 +5,44 @@
 let endpoint = 'http://127.0.0.1:3000/';
 
 export function setData() {
-  //
-  const imgInput = document.getElementById('imgfile');
-  const jsonInput = document.getElementById('jsonfile');
+  const imgInput = document.getElementById('imgfile')
+  const jsonInput = document.getElementById('jsonfile')
 
-  document.getElementById('myform').addEventListener('submit', (ev) => {
-    ev.preventDefault();
-    //upload something
+
+  document.getElementById("myform").addEventListener("submit", (ev)=>{
+    ev.preventDefault()
+
+    // upload something
     let obj = {
-      id: 123,
-      name: 'steve',
-    };
-    let jsonstring = JSON.stringify(obj);
+      id: 23423,
+      name:"Shasa"
+    }
 
-    let fd = new FormData(document.getElementById('myform'));
-    // console.log(imgInput.files[0]);
-    // fd.append('imageFile', imgInput.files[0], imgInput.files[0].name);
+    let formData = new FormData();
+    console.log("IMAGE INPUT VALUE::",imgInput.files[0])
 
-    let request = new Request(endpoint, {
-      method: 'POST',
-      // body: jsonstring,
-      body: fd,
-      headers: {
-        'content-type': 'multipart/form-data',
-      },
+    formData.append("shasaImg", imgInput.files[0], imgInput.files[0].name)
+
+    const request = new Request(endpoint, {
+      method:"POST",
+      //body: JSON.stringify(obj),
+      body: formData,
+      // headers:{
+      //   'content-type': 'multipart/form-data',
+      // }
     });
+
     fetch(request)
-      .then((response) => {
-        if (!response.ok) throw new Error('invalid');
-        return response.text();
+      .then(res=>{
+        if(!res.ok) throw new Error("Unable to fetch")
+        return res.text() // server response is text
       })
-      .then((txt) => {
-        console.log(txt);
+      .then(txt=>{
+        console.log(txt)
       })
-      .catch(console.warn);
-  });
+      .catch(console.warn)
+  })
 }
+
+
+// request body can me string(json)it can also be formdataObj for files or an iterable object
