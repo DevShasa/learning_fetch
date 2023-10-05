@@ -1,4 +1,5 @@
 // measure the download progress of a file
+// Test this on forefox, set throttling inn network to see the loading
 
 const imgstr = 'https://picsum.photos/id/237/3000/2000'; //big image
 const progressInner = document.getElementById("progressInner")
@@ -18,9 +19,11 @@ export function getData() {
       if (done) break; //exit if no more data
       chunks.push(value);
       receivedLength += value.length;
+
+      let percentage = (receivedLength / contentLength) * 100
       // console.log(`Received ${receivedLength} of ${contentLength}`);
       // console.log(`Received ${receivedLength} of ${contentLength} - ${new Date().toISOString()}`);
-      progressInner.textContent = receivedLength
+      progressInner.style.width = `${percentage}%`
       // await new Promise(resolve  => setTimeout(resolve, 1000))
     }
     //combine all the data chunks into single byteArray
