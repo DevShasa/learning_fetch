@@ -8,8 +8,9 @@ const port = 3000; /// http://127.0.0.1:3000/ksldjflkjsd
 //npm install
 //node main.js
 
+//Server sets ACCESS-Control-Allow-Origin: http://127.0.0.1:5500
 app.use(cors());
-
+ 
 app.get('/', (req, res) => {
   res.send('Hello World!');
 });

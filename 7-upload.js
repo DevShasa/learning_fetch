@@ -10,7 +10,7 @@ export function setData() {
 
 
   document.getElementById("myform").addEventListener("submit", (ev)=>{
-    ev.preventDefault()
+    ev.preventDefault() // prevent the form from calling the action
 
     // upload something
     let obj = {
@@ -22,6 +22,7 @@ export function setData() {
     console.log("IMAGE INPUT VALUE::",imgInput.files[0])
 
     formData.append("shasaImg", imgInput.files[0], imgInput.files[0].name)
+    // you can send multiple files by simply adding another formData.append
 
     const request = new Request(endpoint, {
       method:"POST",
@@ -32,6 +33,7 @@ export function setData() {
       // }
     });
 
+    // make a call to the simple server in /server,  
     fetch(request)
       .then(res=>{
         if(!res.ok) throw new Error("Unable to fetch")

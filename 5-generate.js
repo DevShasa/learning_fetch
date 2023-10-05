@@ -39,8 +39,6 @@ export function getData() {
 		.then((json) => {
 			list.innerHTML = json.map(item=>{
         return `<li data-uid="${item.uid}">
-        <p>${item.first_name} ${item.last_name}</p>
-      </li>`
-      }).join("") // make it one big string
+        <p>${item.first_name} ${item.last_name}</p></li>`}).join("") // make it one big string
 		});
 }

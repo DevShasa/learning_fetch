@@ -6,11 +6,12 @@
 // import { getData } from './4-response.js';
 // import { getData } from './5-generate.js';
 // import { getData } from './6-auth.js';
- import { setData } from './7-upload.js';
-// import { getData } from './8-cors.js';
-// import { getData } from './9-multiple.js';
+//  import { setData } from './7-upload.js';
+//  import { getData } from './8-cors.js';
+//  import { getData, getDataa, getDataaa } from './9-multiple.js';
 // import { getData } from './10-abort.js';
 // import { getData } from './11-progress.js';
+import { getData } from './12-delete.js';
 
-// getData();
-setData();
+ getData();
+// setData();
